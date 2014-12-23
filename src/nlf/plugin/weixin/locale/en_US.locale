@@ -1,0 +1,4 @@
+nlf.plugin.weixin.request = request from weixin:
+nlf.plugin.weixin.response = response to weixin:
+nlf.plugin.weixin.error = weixin error
+nlf.plugin.weixin.send = send data to weixin:
