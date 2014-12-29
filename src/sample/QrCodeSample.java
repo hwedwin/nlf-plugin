@@ -1,6 +1,6 @@
 package sample;
 
-import nlf.plugin.weixin.base.AccessTokenHelper;
+import nlf.plugin.weixin.base.BaseHelper;
 import nlf.plugin.weixin.base.bean.AccessToken;
 import nlf.plugin.weixin.exception.WeixinException;
 import nlf.plugin.weixin.qrcode.QrCodeHelper;
@@ -20,7 +20,7 @@ public class QrCodeSample{
     //secret，在公众号开发者中心找
     String secret = "";
     //换取access token
-    AccessToken accessToken = AccessTokenHelper.getAccessToken(appid,secret);
+    AccessToken accessToken = BaseHelper.getAccessToken(appid,secret);
     System.out.println("accessToken："+accessToken.getToken());
     System.out.println("accessToken有效秒数："+accessToken.getExpiresIn());
     
