@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
 import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nlf.plugin.weixin.exception.WeixinException;
@@ -56,10 +57,11 @@ public class MenuHelper{
       }
       Bean dataBean = new Bean().set("button",btns);
       String data = JSON.toJson(dataBean);
-      Logger.getLog().debug(Stringer.print("nlf.plugin.weixin.send",data));
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.send")+data);
       String result = HttpsClient.post(Stringer.print(URL_CREATE,"?",accessToken),data);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
@@ -79,8 +81,9 @@ public class MenuHelper{
   public static void deleteMenu(String accessToken) throws WeixinException{
     try{
       String result = HttpsClient.get(Stringer.print(URL_DELETE,"?",accessToken));
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
@@ -100,8 +103,9 @@ public class MenuHelper{
   public static List<MenuButton> getMenu(String accessToken) throws WeixinException{
     try{
       String result = HttpsClient.get(Stringer.print(URL_GET,"?",accessToken));
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }

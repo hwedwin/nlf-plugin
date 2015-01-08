@@ -1,4 +1,5 @@
-nlf.plugin.weixin.request = 收到微信公众平台发来的请求：
-nlf.plugin.weixin.response = 返回给微信公众平台：
-nlf.plugin.weixin.error = 微信公众号处理出错：
-nlf.plugin.weixin.send = 向微信公众平台发送数据：
+nlf.plugin.weixin.request = 微信发来：
+nlf.plugin.weixin.response = 返回给微信：
+nlf.plugin.weixin.error = 微信处理出错
+nlf.plugin.weixin.send = 向微信发送：
+nlf.plugin.weixin.recv = 微信返回：

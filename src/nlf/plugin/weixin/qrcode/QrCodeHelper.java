@@ -2,6 +2,7 @@ package nlf.plugin.weixin.qrcode;
 
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
 import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nlf.plugin.weixin.exception.WeixinException;
@@ -41,10 +42,11 @@ public class QrCodeHelper{
         dataBean.set("expire_seconds",request.getExpireIn());
       }
       String data = JSON.toJson(dataBean);
-      Logger.getLog().debug(Stringer.print("nlf.plugin.weixin.send",data));
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.send")+data);
       String result = HttpsClient.post(Stringer.print(URL_CREATE,"?",accessToken),data);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }

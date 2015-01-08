@@ -2,6 +2,8 @@ package nlf.plugin.weixin.user;
 
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
+import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nlf.plugin.weixin.exception.WeixinException;
 import nlf.plugin.weixin.user.bean.UserInfo;
@@ -29,8 +31,9 @@ public class UserHelper{
     try{
       String url = Stringer.print(URL_USER_INFO,"?",accessToken,openid,lang);
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }

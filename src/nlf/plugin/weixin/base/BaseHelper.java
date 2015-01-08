@@ -3,6 +3,8 @@ package nlf.plugin.weixin.base;
 import java.util.List;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
+import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nlf.plugin.weixin.base.bean.AccessToken;
 import nlf.plugin.weixin.exception.WeixinException;
@@ -40,8 +42,9 @@ public class BaseHelper{
     try{
       String url = Stringer.print(URL_GET_TOKEN,"?",appid,secret);
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
@@ -70,8 +73,9 @@ public class BaseHelper{
     try{
       String url = Stringer.print(URL_GET_SERVER_IPS,"?",accessToken);
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }

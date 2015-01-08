@@ -3,6 +3,8 @@ package nlf.plugin.weixin.sns;
 import java.util.List;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
+import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nlf.plugin.weixin.exception.WeixinException;
 import nlf.plugin.weixin.sns.bean.AccessToken;
@@ -25,8 +27,9 @@ public class SNSHelper{
   private static AccessToken getTokenByUrl(String url) throws WeixinException{
     try{
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
@@ -80,8 +83,9 @@ public class SNSHelper{
     try{
       String url = Stringer.print(URL_CHECK,"?",accessToken,openid);
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
@@ -103,8 +107,9 @@ public class SNSHelper{
     try{
       String url = Stringer.print(URL_USER_INFO,"?",accessToken,openid);
       String result = HttpsClient.get(url);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
       Bean o = JSON.toBean(result);
-      int errorCode = o.getInt("errorcode",0);
+      int errorCode = o.getInt("errcode",0);
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
