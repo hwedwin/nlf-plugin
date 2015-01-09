@@ -11,6 +11,9 @@ NLF框架用户手册：http://6tail.cn/npress/demo/jsp
     NLF框架官方QQ群：281471914
 
 #更新日志
+##2015-01-09
+1. 增加dbmonitor插件，用于数据库连接监控。
+
 ##2015-01-08
 1. 修正微信公众号及开放平台插件中误将errcode写错为errorcode引起的问题。
 
