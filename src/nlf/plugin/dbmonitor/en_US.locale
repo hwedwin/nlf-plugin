@@ -1,0 +1,3 @@
+nlf.plugin.db.monitor.create_conn = create connection:
+nlf.plugin.db.monitor.remove_conn = remove connection:
+nlf.plugin.db.monitor.close_failed = connection close failed:
