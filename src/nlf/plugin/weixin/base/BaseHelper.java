@@ -22,9 +22,6 @@ public class BaseHelper{
 
   private BaseHelper(){}
 
-  /** 当前的令牌 */
-  private static AccessToken token;
-
   /**
    * 获取令牌
    * 
@@ -34,11 +31,6 @@ public class BaseHelper{
    * @throws WeixinException
    */
   public synchronized static AccessToken getAccessToken(String appid,String secret) throws WeixinException{
-    if(null!=token){
-      if(System.currentTimeMillis()>token.getCreateTime()+token.getExpiresIn()*1000){
-        return token;
-      }
-    }
     try{
       String url = Stringer.print(URL_GET_TOKEN,"?",appid,secret);
       String result = HttpsClient.get(url);
@@ -48,9 +40,7 @@ public class BaseHelper{
       if(0!=errorCode){
         throw new WeixinException(errorCode,o.getString("errmsg"));
       }
-      if(null==token){
-        token = new AccessToken();
-      }
+      AccessToken token = new AccessToken();
       token.setCreateTime(System.currentTimeMillis());
       token.setToken(o.getString("access_token"));
       token.setExpiresIn(o.getInt("expires_in",7200));
