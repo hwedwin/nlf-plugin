@@ -18,5 +18,7 @@ public enum EventType{
   /** 菜单点击 */
   CLICK,
   /** 网页 */
-  VIEW
+  VIEW,
+  /** 模板消息发送完成 */
+  TEMPLATESENDJOBFINISH
 }

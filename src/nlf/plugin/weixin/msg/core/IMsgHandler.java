@@ -8,6 +8,7 @@ import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
 import nlf.plugin.weixin.msg.bean.impl.ScanEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.SubscribeEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.TemplateSendJobFinishEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TextMsg;
 import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
@@ -116,4 +117,11 @@ public interface IMsgHandler{
    * @return 响应消息
    */
   IResponseMsg onLink(LinkMsg msg);
+  
+  /**
+   * 当收到模板消息发送结果通知
+   * @param event 模板消息发送结果事件
+   * @return 响应消息
+   */
+  IResponseMsg onTemplateSendJobFinish(TemplateSendJobFinishEventMsg event);
 }

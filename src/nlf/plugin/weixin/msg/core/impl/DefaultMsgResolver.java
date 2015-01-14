@@ -15,6 +15,7 @@ import nlf.plugin.weixin.msg.bean.impl.NewsItem;
 import nlf.plugin.weixin.msg.bean.impl.NewsMsg;
 import nlf.plugin.weixin.msg.bean.impl.ScanEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.SubscribeEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.TemplateSendJobFinishEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TextMsg;
 import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
@@ -191,6 +192,19 @@ public class DefaultMsgResolver implements IMsgResolver{
     m.setTicket(o.getString("Ticket"));
     return m;
   }
+  
+  /**
+   * 解析二维码扫描事件
+   * 
+   * @param o 数据Bean
+   * @return 事件消息
+   */
+  private IEventMsg decodeTemplateSendJobMsg(Bean o){
+    TemplateSendJobFinishEventMsg m = new TemplateSendJobFinishEventMsg();
+    m.setMsgId(o.getString("MsgID"));
+    m.setStatus(o.getString("Status"));
+    return m;
+  }
 
   /**
    * 解析事件
@@ -219,6 +233,9 @@ public class DefaultMsgResolver implements IMsgResolver{
         break;
       case scan:
         msg = decodeScanMsg(o);
+        break;
+      case TEMPLATESENDJOBFINISH:
+        msg = decodeTemplateSendJobMsg(o);
         break;
     }
     return msg;

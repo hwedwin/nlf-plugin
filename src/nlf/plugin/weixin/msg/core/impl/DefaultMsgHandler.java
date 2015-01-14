@@ -8,6 +8,7 @@ import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
 import nlf.plugin.weixin.msg.bean.impl.ScanEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.SubscribeEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.TemplateSendJobFinishEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TextMsg;
 import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
@@ -67,6 +68,10 @@ public abstract class DefaultMsgHandler implements IMsgHandler{
   }
 
   public IResponseMsg onVoice(VoiceMsg msg){
+    return null;
+  }
+  
+  public IResponseMsg onTemplateSendJobFinish(TemplateSendJobFinishEventMsg event){
     return null;
   }
 }

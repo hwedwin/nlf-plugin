@@ -23,6 +23,7 @@ import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
 import nlf.plugin.weixin.msg.bean.impl.ScanEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.SubscribeEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.TemplateSendJobFinishEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TextMsg;
 import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
@@ -177,6 +178,10 @@ public class DefaultMsgController{
           case VIEW:
             responseMsg = handler.onView((ViewEventMsg)em);
             break;
+          case TEMPLATESENDJOBFINISH:
+            responseMsg = handler.onTemplateSendJobFinish((TemplateSendJobFinishEventMsg)em);
+            break;
+          default:break;
         }
         break;
       case text:
@@ -197,8 +202,7 @@ public class DefaultMsgController{
       case link:
         responseMsg = handler.onLink((LinkMsg)msg);
         break;
-      default:
-        break;
+      default:break;
     }
     String responseStr = resolver.encode(responseMsg);
     Logger.getLog().debug(L.get("nlf.plugin.weixin.response")+responseStr);
