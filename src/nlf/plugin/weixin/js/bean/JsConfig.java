@@ -1,7 +1,5 @@
 package nlf.plugin.weixin.js.bean;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * js配置
@@ -16,7 +14,7 @@ public class JsConfig{
   private String ticket;
   private int timestamp;
   private String url;
-  private List<String> jsApiList = new ArrayList<String>();
+  private String[] jsApiList = {};
 
   public boolean isDebug(){
     return debug;
@@ -66,15 +64,11 @@ public class JsConfig{
     this.url = url;
   }
 
-  public List<String> getJsApiList(){
+  public String[] getJsApiList(){
     return jsApiList;
   }
 
-  public void setJsApiList(List<String> jsApiList){
+  public void setJsApiList(String[] jsApiList){
     this.jsApiList = jsApiList;
-  }
-
-  public void addJsApi(String jsApi){
-    jsApiList.add(jsApi);
   }
 }

@@ -1,5 +1,7 @@
 package nlf.plugin.weixin.base;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
@@ -19,6 +21,7 @@ import nlf.plugin.weixin.util.HttpsClient;
 public class BaseHelper{
   public static String URL_GET_TOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=?&secret=?";
   public static String URL_GET_SERVER_IPS = "https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=?";
+  public static String URL_TO_SHORT = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token=?";
 
   private BaseHelper(){}
 
@@ -76,5 +79,47 @@ public class BaseHelper{
     }catch(Exception e){
       throw new WeixinException(e);
     }
+  }
+  
+  public static String shortUrl(String accessToken,String longUrl) throws WeixinException{
+    try{
+      Bean dataBean = new Bean();
+      dataBean.set("action","long2short");
+      dataBean.set("long_url",longUrl);
+      String data = JSON.toJson(dataBean);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.send")+data);
+      String result = HttpsClient.post(Stringer.print(URL_TO_SHORT,"?",accessToken),data);
+      Logger.getLog().debug(L.get("nlf.plugin.weixin.recv")+result);
+      Bean o = JSON.toBean(result);
+      int errorCode = o.getInt("errcode",0);
+      if(0!=errorCode){
+        throw new WeixinException(errorCode,o.getString("errmsg"));
+      }
+      return o.getString("short_url");
+    }catch(WeixinException e){
+      throw e;
+    }catch(Exception e){
+      throw new WeixinException(e);
+    }
+  }
+  
+  /**
+   * sha1
+   * 
+   * @param s 原字符串
+   * @return 结果字符串
+   * @throws NoSuchAlgorithmException
+   */
+  public static String sha1(String s) throws NoSuchAlgorithmException{
+    MessageDigest md = MessageDigest.getInstance("SHA-1");
+    md.update(s.getBytes());
+    byte[] b = md.digest();
+    StringBuilder sb = new StringBuilder();
+    for(int i = 0;i<b.length;i++){
+      String hex = Integer.toHexString(b[i]&0xFF);
+      hex = (hex.length()==1?"0":"")+hex;
+      sb.append(hex);
+    }
+    return sb.toString();
   }
 }

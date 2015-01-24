@@ -3,3 +3,5 @@ nlf.plugin.weixin.response = 返回给微信：
 nlf.plugin.weixin.error = 微信处理出错
 nlf.plugin.weixin.send = 向微信发送：
 nlf.plugin.weixin.recv = 微信返回：
+nlf.plugin.weixin.sign_data = 待签名内容：
+nlf.plugin.weixin.sign_result = 签名结果：
