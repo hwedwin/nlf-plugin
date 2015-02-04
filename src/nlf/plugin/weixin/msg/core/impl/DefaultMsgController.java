@@ -29,6 +29,7 @@ import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
 import nlf.plugin.weixin.msg.bean.impl.ViewEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VoiceMsg;
+import nlf.plugin.weixin.msg.core.IMsgController;
 import nlf.plugin.weixin.msg.core.IMsgHandler;
 import nlf.plugin.weixin.msg.core.IMsgResolver;
 
@@ -38,7 +39,7 @@ import nlf.plugin.weixin.msg.core.IMsgResolver;
  * @author 6tail
  *
  */
-public class DefaultMsgController{
+public class DefaultMsgController implements IMsgController{
   /** 微信公众号中设置的令牌，如果为null或空字符串，用于本地测试，不进行验证 */
   protected String token;
   /** 消息解析接口 */
@@ -166,7 +167,7 @@ public class DefaultMsgController{
           case LOCATION:
             responseMsg = handler.onLocation((LocationEventMsg)em);
             break;
-          case scan:
+          case SCAN:
             responseMsg = handler.onScan((ScanEventMsg)em);
             break;
           case subscribe:

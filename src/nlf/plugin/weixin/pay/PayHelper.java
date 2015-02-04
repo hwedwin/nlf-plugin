@@ -2,15 +2,18 @@ package nlf.plugin.weixin.pay;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.locale.L;
 import nc.liat6.frame.log.Logger;
 import nc.liat6.frame.util.Stringer;
 import nc.liat6.frame.xml.XML;
 import nlf.plugin.weixin.exception.WeixinException;
+import nlf.plugin.weixin.pay.bean.PayNotifyRequest;
 import nlf.plugin.weixin.pay.bean.PrePayResult;
 import nlf.plugin.weixin.pay.bean.UnifiedOrder;
 import nlf.plugin.weixin.util.HttpsClient;
@@ -22,9 +25,61 @@ import nlf.plugin.weixin.util.HttpsClient;
  *
  */
 public class PayHelper{
+  /** 创建预支付单URL */
   public static String URL_ORDER = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+  private static final String CHARS = "abcdefghijklmnopqrstuvwxyz0123456789";
 
   protected PayHelper(){}
+
+  /**
+   * 生成timestamp
+   * @return timestamp
+   */
+  public static String genTimestamp(){
+    return (System.currentTimeMillis()/1000)+"";
+  }
+
+  /**
+   * 生成nonceStr
+   * @return nonceStr
+   */
+  public static String genNonceStr(){
+    int l = CHARS.length();
+    Random random = new Random();
+    StringBuffer sb = new StringBuffer();
+    for(int i = 0;i<16;i++){
+      int number = random.nextInt(l);
+      sb.append(CHARS.charAt(number));
+    }
+    return sb.toString();
+  }
+  
+  public static String signPayNotify(PayNotifyRequest request,String secret) throws NoSuchAlgorithmException{
+    Bean o = new Bean();
+    o.fromObject(request);
+    o.remove("sign");
+    SortedMap<String,String> map = new TreeMap<String,String>();
+    for(String key:o.keySet()){
+      String value = o.getString(key,"");
+      if(value.length()>0){
+        map.put(key,o.getString(key));
+      }
+    }
+    StringBuffer sb = new StringBuffer();
+    for(String key:map.keySet()){
+      sb.append(key);
+      sb.append("=");
+      sb.append(map.get(key));
+      sb.append("&");
+    }
+    sb.append("key=");
+    sb.append(secret);
+    String s = sb.toString();
+    Logger.getLog().debug(L.get("nlf.plugin.weixin.sign_data")+s);
+    s = Stringer.md5(s);
+    Logger.getLog().debug(L.get("nlf.plugin.weixin.sign_result")+s);
+    return s;
+  }
 
   /**
    * 签名
@@ -37,22 +92,24 @@ public class PayHelper{
   public static String sign(UnifiedOrder order,String secret) throws NoSuchAlgorithmException{
     Bean o = new Bean();
     o.fromObject(order);
-    List<String> args = new ArrayList<String>();
-    Iterator<String> it = o.keySet().iterator();
-    String key;
-    while(it.hasNext()){
-      key = it.next();
-      if(o.getString(key,"").length()>0){
-        args.add(key);
+    o.remove("sign");
+    SortedMap<String,String> map = new TreeMap<String,String>();
+    for(String key:o.keySet()){
+      String value = o.getString(key,"");
+      if(value.length()>0){
+        map.put(key,o.getString(key));
       }
     }
-    Collections.sort(args);
-    for(int i = 0,j = args.size();i<j;i++){
-      key = args.get(i);
-      args.set(i,key+"="+o.getString(key));
+    StringBuffer sb = new StringBuffer();
+    for(String key:map.keySet()){
+      sb.append(key);
+      sb.append("=");
+      sb.append(map.get(key));
+      sb.append("&");
     }
-    args.add("key="+secret);
-    String s = Stringer.join(args,"&");
+    sb.append("key=");
+    sb.append(secret);
+    String s = sb.toString();
     Logger.getLog().debug(L.get("nlf.plugin.weixin.sign_data")+s);
     s = Stringer.md5(s);
     Logger.getLog().debug(L.get("nlf.plugin.weixin.sign_result")+s);
@@ -62,7 +119,7 @@ public class PayHelper{
   /**
    * 预支付
    * 
-   * @param signedOrder 已前面的预支付单
+   * @param signedOrder 已签名的预支付单
    * @return 预支付结果
    * @throws WeixinException
    */
@@ -82,7 +139,6 @@ public class PayHelper{
       for(String k:args){
         bean.remove(k);
       }
-      bean.remove("key");
       String data = XML.toXML(bean,true,"xml",false);
       data = Stringer.cut(data,">");
       Logger.getLog().debug(L.get("nlf.plugin.weixin.send")+data);

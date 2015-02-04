@@ -14,7 +14,7 @@ public class ScanEventMsg extends AbstractEventMsg{
   private String ticket;
 
   public ScanEventMsg(){
-    setEventType(EventType.scan);
+    setEventType(EventType.SCAN);
   }
 
   public String getEventKey(){

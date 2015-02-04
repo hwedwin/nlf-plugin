@@ -231,7 +231,7 @@ public class DefaultMsgResolver implements IMsgResolver{
       case LOCATION:
         msg = decodeLocationMsg(o);
         break;
-      case scan:
+      case SCAN:
         msg = decodeScanMsg(o);
         break;
       case TEMPLATESENDJOBFINISH:

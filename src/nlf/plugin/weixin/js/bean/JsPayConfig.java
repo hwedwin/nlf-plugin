@@ -1,5 +1,10 @@
 package nlf.plugin.weixin.js.bean;
 
+/**
+ * JS支付配置信息
+ * @author 6tail
+ *
+ */
 public class JsPayConfig{
   private String appId;
   private String timeStamp;

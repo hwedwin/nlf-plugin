@@ -12,7 +12,7 @@ public enum EventType{
   /** 用户取消关注 */
   unsubscribe,
   /** 二维码扫描 */
-  scan,
+  SCAN,
   /** 地理位置 */
   LOCATION,
   /** 菜单点击 */

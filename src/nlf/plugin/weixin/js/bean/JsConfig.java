@@ -1,6 +1,5 @@
 package nlf.plugin.weixin.js.bean;
 
-
 /**
  * js配置
  * 
@@ -12,7 +11,7 @@ public class JsConfig{
   private String appId;
   private String noncestr;
   private String ticket;
-  private int timestamp;
+  private String timestamp;
   private String url;
   private String[] jsApiList = {};
 
@@ -48,11 +47,11 @@ public class JsConfig{
     this.ticket = ticket;
   }
 
-  public int getTimestamp(){
+  public String getTimestamp(){
     return timestamp;
   }
 
-  public void setTimestamp(int timestamp){
+  public void setTimestamp(String timestamp){
     this.timestamp = timestamp;
   }
 
