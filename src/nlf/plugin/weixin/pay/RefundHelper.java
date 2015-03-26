@@ -26,7 +26,7 @@ import nlf.plugin.weixin.util.HttpsClient;
 public class RefundHelper{
   /** 退款申请URL */
   public static String URL_REFUND = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-
+  
   protected RefundHelper(){}
 
   /**
@@ -63,7 +63,7 @@ public class RefundHelper{
     Logger.getLog().debug(L.get("nlf.plugin.weixin.sign_result")+s);
     return s;
   }
-  
+
   /**
    * 退款申请
    * 
