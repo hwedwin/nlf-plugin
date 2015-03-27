@@ -3,9 +3,12 @@ package nlf.plugin.weibo.msg.core.impl;
 import java.net.URLEncoder;
 import nc.liat6.frame.db.entity.Bean;
 import nc.liat6.frame.json.JSON;
+import nc.liat6.frame.locale.L;
+import nc.liat6.frame.log.Logger;
 import nlf.plugin.weibo.msg.bean.IEventMsg;
 import nlf.plugin.weibo.msg.bean.IRequestMsg;
 import nlf.plugin.weibo.msg.bean.IResponseMsg;
+import nlf.plugin.weibo.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.MentionMsg;
 import nlf.plugin.weibo.msg.bean.impl.SubscribeEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.TextMsg;
@@ -87,6 +90,19 @@ public class WeiboMsgResolver implements IMsgResolver{
   private IEventMsg decodeUnFollowMsg(Bean d){
     return new UnSubscribeEventMsg();
   }
+  
+  /**
+   * 解析菜单点击事件
+   * 
+   * @param o 数据Bean
+   * @return 事件消息
+   */
+  private IEventMsg decodeClickMsg(Bean d){
+    ClickEventMsg m = new ClickEventMsg();
+    Bean data = d.get("data");
+    m.setKey(data.getString("key"));
+    return m;
+  }
 
   /**
    * 解析事件
@@ -111,6 +127,9 @@ public class WeiboMsgResolver implements IMsgResolver{
           break;
         case unsubscribe:
           msg = decodeUnSubscribeMsg(d);
+          break;
+        case click:
+          msg = decodeClickMsg(d);
           break;
       }
       return msg;
@@ -148,6 +167,7 @@ public class WeiboMsgResolver implements IMsgResolver{
       msg.setCreateTime(d.getString("created_at",""));
       return msg;
     }catch(Exception e){
+      Logger.getLog().error(L.get("nlf.plugin.weibo.error"),e);
       return null;
     }
   }

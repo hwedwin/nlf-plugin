@@ -15,6 +15,7 @@ import nc.liat6.frame.log.Logger;
 import nlf.plugin.weibo.msg.bean.IEventMsg;
 import nlf.plugin.weibo.msg.bean.IMsg;
 import nlf.plugin.weibo.msg.bean.IResponseMsg;
+import nlf.plugin.weibo.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.FollowEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.MentionMsg;
 import nlf.plugin.weibo.msg.bean.impl.SubscribeEventMsg;
@@ -173,6 +174,9 @@ public class WeiboMsgController implements IMsgController{
             break;
           case unfollow:
             responseMsg = handler.onUnFollow((UnFollowEventMsg)em);
+            break;
+          case click:
+            responseMsg = handler.onClick((ClickEventMsg)em);
             break;
           default:
             break;

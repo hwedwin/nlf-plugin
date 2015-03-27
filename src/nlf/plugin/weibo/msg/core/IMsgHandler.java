@@ -1,6 +1,7 @@
 package nlf.plugin.weibo.msg.core;
 
 import nlf.plugin.weibo.msg.bean.IResponseMsg;
+import nlf.plugin.weibo.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.FollowEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.MentionMsg;
 import nlf.plugin.weibo.msg.bean.impl.SubscribeEventMsg;
@@ -62,4 +63,11 @@ public interface IMsgHandler{
    * @return 响应消息
    */
   IResponseMsg onMention(MentionMsg msg);
+  
+  /**
+   * 当用户点击菜单
+   * @param msg 用户点击菜单事件
+   * @return 响应消息
+   */
+  IResponseMsg onClick(ClickEventMsg msg);
 }

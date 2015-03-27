@@ -14,5 +14,7 @@ public enum EventType{
   /** 用户关注 */
   subscribe,
   /** 用户取消关注 */
-  unsubscribe
+  unsubscribe,
+  /** 点击菜单 */
+  click
 }

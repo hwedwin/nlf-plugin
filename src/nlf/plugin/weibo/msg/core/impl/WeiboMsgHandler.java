@@ -1,6 +1,7 @@
 package nlf.plugin.weibo.msg.core.impl;
 
 import nlf.plugin.weibo.msg.bean.IResponseMsg;
+import nlf.plugin.weibo.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.FollowEventMsg;
 import nlf.plugin.weibo.msg.bean.impl.MentionMsg;
 import nlf.plugin.weibo.msg.bean.impl.SubscribeEventMsg;
@@ -37,6 +38,10 @@ public abstract class WeiboMsgHandler implements IMsgHandler{
   }
 
   public IResponseMsg onUnFollow(UnFollowEventMsg event){
+    return null;
+  }
+
+  public IResponseMsg onClick(ClickEventMsg msg){
     return null;
   }
 }
