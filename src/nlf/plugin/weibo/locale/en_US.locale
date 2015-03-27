@@ -1,0 +1,7 @@
+nlf.plugin.weibo.request = request from weibo:
+nlf.plugin.weibo.response = response to weibo:
+nlf.plugin.weibo.error = weibo error
+nlf.plugin.weibo.send = send to weibo:
+nlf.plugin.weibo.recv = receive from weibo:
+nlf.plugin.weibo.sign_data = sign data:
+nlf.plugin.weibo.sign_result = sign result:

@@ -1,0 +1,7 @@
+nlf.plugin.weibo.request = 微博发来：
+nlf.plugin.weibo.response = 返回给微博：
+nlf.plugin.weibo.error = 微博处理出错
+nlf.plugin.weibo.send = 向微博发送：
+nlf.plugin.weibo.recv = 微博返回：
+nlf.plugin.weibo.sign_data = 待签名内容：
+nlf.plugin.weibo.sign_result = 签名结果：
