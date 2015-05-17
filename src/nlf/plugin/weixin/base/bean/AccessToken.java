@@ -1,7 +1,7 @@
 package nlf.plugin.weixin.base.bean;
 
 /**
- * 令牌
+ * 微信令牌
  * 
  * @author 6tail
  *

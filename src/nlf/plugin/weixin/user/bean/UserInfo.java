@@ -2,7 +2,7 @@ package nlf.plugin.weixin.user.bean;
 
 
 /**
- * 微信用户信息
+ * 关注的微信用户信息
  * 
  * @author 6tail
  *

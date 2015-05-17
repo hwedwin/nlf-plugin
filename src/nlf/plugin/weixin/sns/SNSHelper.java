@@ -97,7 +97,7 @@ public class SNSHelper{
   }
   
   /**
-   * 获取用户信息
+   * 获取授权登录用户信息
    * @param accessToken 调用接口凭证
    * @param openid 普通用户标识，对该公众帐号唯一
    * @return 用户信息

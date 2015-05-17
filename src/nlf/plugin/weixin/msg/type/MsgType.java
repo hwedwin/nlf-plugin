@@ -24,5 +24,7 @@ public enum MsgType{
   /** 音乐，用于响应 */
   music,
   /** 图文消息，用于响应 */
-  news
+  news,
+  /** 转移客服消息 */
+  transfer_customer_service
 }

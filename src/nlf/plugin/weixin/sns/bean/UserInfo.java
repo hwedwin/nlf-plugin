@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 微信用户信息
+ * 微信授权用户信息
  * 
  * @author 6tail
  *

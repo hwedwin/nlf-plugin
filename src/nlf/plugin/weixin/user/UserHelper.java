@@ -10,7 +10,7 @@ import nlf.plugin.weixin.user.bean.UserInfo;
 import nlf.plugin.weixin.util.HttpsClient;
 
 /**
- * 公众号用户工具类
+ * 公众号用户工具类，获取关注用户信息
  * @author 6tail
  *
  */

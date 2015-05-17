@@ -17,6 +17,7 @@ import nlf.plugin.weixin.msg.bean.impl.ScanEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.SubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TemplateSendJobFinishEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.TextMsg;
+import nlf.plugin.weixin.msg.bean.impl.TransferCustomerMsg;
 import nlf.plugin.weixin.msg.bean.impl.UnSubscribeEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.VideoMsg;
 import nlf.plugin.weixin.msg.bean.impl.ViewEventMsg;
@@ -292,6 +293,24 @@ public class DefaultMsgResolver implements IMsgResolver{
     s.append("]]></Content>");
     return s.toString();
   }
+  
+  /**
+   * 构造转发客服消息字符串
+   * 
+   * @param msg 消息
+   * @return 字符串
+   */
+  private String encodeTransferCustomerMsg(TransferCustomerMsg msg){
+    StringBuilder s = new StringBuilder();
+    if(null!=msg.getKfAccount()){
+      s.append("<TransInfo><KfAccount><![CDATA[");
+      s.append(msg.getKfAccount());
+      s.append("]]></KfAccount></TransInfo>");
+    }
+    return s.toString();
+  }
+  
+  
 
   /**
    * 构造图片消息字符串
@@ -416,6 +435,9 @@ public class DefaultMsgResolver implements IMsgResolver{
     switch(msg.getMsgType()){
       case text:
         s.append(encodeTextMsg((TextMsg)msg));
+        break;
+      case transfer_customer_service:
+        s.append(encodeTransferCustomerMsg((TransferCustomerMsg)msg));
         break;
       case image:
         s.append(encodeImageMsg((ImageMsg)msg));
