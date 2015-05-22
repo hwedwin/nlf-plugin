@@ -71,7 +71,7 @@ public class RedpackHelper{
    * @return 发送红包反馈
    * @throws WeixinException
    */
-  public static RedpackResponse refund(RedpackRequest refundRequest,File certFile) throws WeixinException{
+  public static RedpackResponse sendRedpack(RedpackRequest refundRequest,File certFile) throws WeixinException{
     try{
       Bean bean = new Bean();
       bean.fromObject(refundRequest);
