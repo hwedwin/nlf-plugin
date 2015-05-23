@@ -1,8 +1,10 @@
 package nlf.plugin.db.mongo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import nc.liat6.frame.db.entity.Bean;
+import nc.liat6.frame.db.entity.IBeanRule;
 import nc.liat6.frame.db.exception.DaoException;
 import nc.liat6.frame.db.plugin.ISelecter;
 import nc.liat6.frame.db.plugin.Rule;
@@ -182,5 +184,86 @@ public class MongoSelecter extends MongoExecuter implements ISelecter{
       throw new DaoException(L.get("sql.record_not_found"));
     }
     return l.get(0);
+  }
+
+  public <T>List<T> select(Class<?> klass){
+    return select(klass,null);
+  }
+
+  public <T>List<T> select(Class<?> klass,IBeanRule rule){
+    List<Bean> l = select();
+    List<T> rl = new ArrayList<T>(l.size());
+    for(Bean o:l){
+      T t = o.toObject(klass,rule);
+      rl.add(t);
+    }
+    return rl;
+  }
+
+  public PageData page(int pageNumber,int pageSize,Class<?> klass){
+    return page(pageNumber,pageSize,klass,null);
+  }
+
+  public PageData page(int pageNumber,int pageSize,Class<?> klass,IBeanRule rule){
+    PageData pd = page(pageNumber,pageSize);
+    int size = pd.getSize();
+    List<Object> l = new ArrayList<Object>(size);
+    for(int i=0;i<size;i++){
+      Bean o = pd.getBean(i);
+      Object t = o.toObject(klass,rule);
+      l.add(t);
+    }
+    pd.setData(l);
+    return pd;
+  }
+
+  public <T>T one(Class<?> klass){
+    return one(klass,null);
+  }
+
+  public <T>T one(Class<?> klass,IBeanRule rule){
+    Bean o = one();
+    T t = o.toObject(klass,rule);
+    return t;
+  }
+
+  public Iterator<Bean> iterator(){
+    return select().iterator();
+  }
+
+  public <T>Iterator<T> iterator(Class<?> klass){
+    return iterator(klass,null);
+  }
+
+  public <T>Iterator<T> iterator(Class<?> klass,IBeanRule rule){
+    List<T> l = select(klass,rule);
+    return l.iterator();
+  }
+
+  public List<Bean> top(int n){
+    PageData pd = page(1,n);
+    int size = pd.getSize();
+    List<Bean> l = new ArrayList<Bean>(size);
+    for(int i=0;i<size;i++){
+      Bean o = pd.getBean(i);
+      l.add(o);
+    }
+    return l;
+  }
+
+  public <T>List<T> top(int n,Class<?> klass){
+    return top(n,klass,null);
+  }
+
+  public <T>List<T> top(int n,Class<?> klass,IBeanRule rule){
+    PageData pd = page(1,n,klass,rule);
+    int size = pd.getSize();
+    List<T> l = new ArrayList<T>(size);
+    for(int i=0;i<size;i++){
+      Bean o = pd.getBean(i);
+      T t = o.toObject(klass,rule);
+      l.add(t);
+    }
+    return l;
   }
 }
