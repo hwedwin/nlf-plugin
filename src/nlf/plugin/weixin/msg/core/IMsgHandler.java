@@ -3,6 +3,9 @@ package nlf.plugin.weixin.msg.core;
 import nlf.plugin.weixin.msg.bean.IResponseMsg;
 import nlf.plugin.weixin.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.ImageMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCloseSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCreateSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfSwitchSessionEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LinkMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
@@ -124,4 +127,28 @@ public interface IMsgHandler{
    * @return 响应消息
    */
   IResponseMsg onTemplateSendJobFinish(TemplateSendJobFinishEventMsg event);
+  
+  /**
+   * 当多客服接入会话
+   * 
+   * @param msg 多客服接入会话事件
+   * @return 响应消息
+   */
+  IResponseMsg onKfCreateSession(KfCreateSessionEventMsg msg);
+  
+  /**
+   * 当多客服关闭会话
+   * 
+   * @param msg 多客服关闭会话事件
+   * @return 响应消息
+   */
+  IResponseMsg onKfCloseSession(KfCloseSessionEventMsg msg);
+  
+  /**
+   * 当多客服转接会话
+   * 
+   * @param msg 多客服转接会话事件
+   * @return 响应消息
+   */
+  IResponseMsg onKfSwitchSession(KfSwitchSessionEventMsg msg);
 }

@@ -18,6 +18,9 @@ import nlf.plugin.weixin.msg.bean.IMsg;
 import nlf.plugin.weixin.msg.bean.IResponseMsg;
 import nlf.plugin.weixin.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.ImageMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCloseSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCreateSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfSwitchSessionEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LinkMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
@@ -181,6 +184,15 @@ public class DefaultMsgController implements IMsgController{
             break;
           case TEMPLATESENDJOBFINISH:
             responseMsg = handler.onTemplateSendJobFinish((TemplateSendJobFinishEventMsg)em);
+            break;
+          case kf_create_session:
+            responseMsg = handler.onKfCreateSession((KfCreateSessionEventMsg)em);
+            break;
+          case kf_close_session:
+            responseMsg = handler.onKfCloseSession((KfCloseSessionEventMsg)em);
+            break;
+          case kf_switch_session:
+            responseMsg = handler.onKfSwitchSession((KfSwitchSessionEventMsg)em);
             break;
           default:break;
         }

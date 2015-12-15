@@ -7,6 +7,9 @@ import nlf.plugin.weixin.msg.bean.IRequestMsg;
 import nlf.plugin.weixin.msg.bean.IResponseMsg;
 import nlf.plugin.weixin.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.ImageMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCloseSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCreateSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfSwitchSessionEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LinkMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
@@ -208,6 +211,30 @@ public class DefaultMsgResolver implements IMsgResolver{
   }
 
   /**
+   * 解析多客服接入会话事件
+   * @param o 数据Bean
+   * @return 事件消息
+   */
+  private IEventMsg decodeKfCreateSessionMsg(Bean o){
+    KfCreateSessionEventMsg m = new KfCreateSessionEventMsg();
+    m.setKfAccount(o.getString("KfAccount"));
+    return m;
+  }
+  
+  private IEventMsg decodeKfCloseSessionMsg(Bean o){
+    KfCloseSessionEventMsg m = new KfCloseSessionEventMsg();
+    m.setKfAccount(o.getString("KfAccount"));
+    return m;
+  }
+  
+  private IEventMsg decodeKfSwitchSessionMsg(Bean o){
+    KfSwitchSessionEventMsg m = new KfSwitchSessionEventMsg();
+    m.setFromKfAccount(o.getString("FromKfAccount"));
+    m.setToKfAccount(o.getString("ToKfAccount"));
+    return m;
+  }
+  
+  /**
    * 解析事件
    * 
    * @param o 数据Bean
@@ -237,6 +264,15 @@ public class DefaultMsgResolver implements IMsgResolver{
         break;
       case TEMPLATESENDJOBFINISH:
         msg = decodeTemplateSendJobMsg(o);
+        break;
+      case kf_create_session:
+        msg = decodeKfCreateSessionMsg(o);
+        break;
+      case kf_close_session:
+        msg = decodeKfCloseSessionMsg(o);
+        break;
+      case kf_switch_session:
+        msg = decodeKfSwitchSessionMsg(o);
         break;
     }
     return msg;

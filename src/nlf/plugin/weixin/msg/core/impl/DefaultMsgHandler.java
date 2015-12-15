@@ -3,6 +3,9 @@ package nlf.plugin.weixin.msg.core.impl;
 import nlf.plugin.weixin.msg.bean.IResponseMsg;
 import nlf.plugin.weixin.msg.bean.impl.ClickEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.ImageMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCloseSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfCreateSessionEventMsg;
+import nlf.plugin.weixin.msg.bean.impl.KfSwitchSessionEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LinkMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationEventMsg;
 import nlf.plugin.weixin.msg.bean.impl.LocationMsg;
@@ -72,6 +75,18 @@ public abstract class DefaultMsgHandler implements IMsgHandler{
   }
   
   public IResponseMsg onTemplateSendJobFinish(TemplateSendJobFinishEventMsg event){
+    return null;
+  }
+  
+  public IResponseMsg onKfCreateSession(KfCreateSessionEventMsg msg){
+    return null;
+  }
+  
+  public IResponseMsg onKfCloseSession(KfCloseSessionEventMsg msg){
+    return null;
+  }
+  
+  public IResponseMsg onKfSwitchSession(KfSwitchSessionEventMsg msg){
     return null;
   }
 }

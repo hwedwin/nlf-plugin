@@ -20,5 +20,11 @@ public enum EventType{
   /** 网页 */
   VIEW,
   /** 模板消息发送完成 */
-  TEMPLATESENDJOBFINISH
+  TEMPLATESENDJOBFINISH,
+  /** 多客服接入会话 */
+  kf_create_session,
+  /** 多客服关闭会话 */
+  kf_close_session,
+  /** 多客服转接会话 */
+  kf_switch_session
 }
