@@ -11,6 +11,9 @@ NLF框架用户手册：http://6tail.cn/npress/demo/jsp
     NLF框架官方QQ群：281471914
 
 #更新日志
+##2015-12-18
+1. 增加日志输出完整sql语句的插件nlf-plugin-fullLogTemplate。(只是日志输出完整sql语句，如select * from user where name='张三'，实际执行的是预编译的select * from user where name=?)
+
 ##2015-12-15
 1. 微信插件增加客服接入、关闭、转接会话事件处理。
 
