@@ -14,6 +14,10 @@ public class MailMsg{
   private String fromAddress;
   /** 收件人 */
   private List<String> toAddresses = new ArrayList<String>();
+  /** 抄送收件人 */
+  private List<String> toCCAddresses = new ArrayList<String>();
+  /** 密送收件人 */
+  private List<String> toBCCAddresses = new ArrayList<String>();
   /** 主题 */
   private String subject;
   /** 内容 */
@@ -37,6 +41,30 @@ public class MailMsg{
 
   public void addToAddress(String toAddress){
     toAddresses.add(toAddress);
+  }
+
+  public List<String> getToCCAddresses(){
+    return toCCAddresses;
+  }
+
+  public void setToCCAddresses(List<String> toCCAddresses){
+    this.toCCAddresses = toCCAddresses;
+  }
+  
+  public void addToCCAddress(String toCCAddress){
+    toCCAddresses.add(toCCAddress);
+  }
+
+  public List<String> getToBCCAddresses(){
+    return toBCCAddresses;
+  }
+
+  public void setToBCCAddresses(List<String> toBCCAddresses){
+    this.toBCCAddresses = toBCCAddresses;
+  }
+  
+  public void addToBCCAddress(String toBCCAddress){
+    toBCCAddresses.add(toBCCAddress);
   }
 
   public String getSubject(){

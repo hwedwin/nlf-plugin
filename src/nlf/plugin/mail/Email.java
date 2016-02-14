@@ -90,11 +90,33 @@ public class Email{
   /**
    * 添加收件人
    * 
-   * @param to 收件人邮箱
+   * @param to 收件人邮箱，群发则逗号分隔多个邮箱
    * @return
    */
   public Email to(String to){
     msg.addToAddress(to);
+    return this;
+  }
+  
+  /**
+   * 添加抄送收件人
+   * 
+   * @param to 抄送收件人邮箱，群发则逗号分隔多个邮箱
+   * @return
+   */
+  public Email toCC(String to){
+    msg.addToCCAddress(to);
+    return this;
+  }
+  
+  /**
+   * 添加密送收件人
+   * 
+   * @param to 密送收件人邮箱，群发则逗号分隔多个邮箱
+   * @return
+   */
+  public Email toBCC(String to){
+    msg.addToBCCAddress(to);
     return this;
   }
 
@@ -189,7 +211,13 @@ public class Email{
     message.setSubject(msg.getSubject());
     message.setFrom(new InternetAddress(msg.getFromAddress()));
     for(String s:msg.getToAddresses()){
-      message.addRecipient(Message.RecipientType.TO,new InternetAddress(s));
+      message.addRecipients(Message.RecipientType.TO,InternetAddress.parse(s));
+    }
+    for(String s:msg.getToCCAddresses()){
+      message.addRecipients(Message.RecipientType.CC,InternetAddress.parse(s));
+    }
+    for(String s:msg.getToBCCAddresses()){
+      message.addRecipients(Message.RecipientType.BCC,InternetAddress.parse(s));
     }
     message.setSentDate(new Date());
     Multipart multipart = new MimeMultipart();
