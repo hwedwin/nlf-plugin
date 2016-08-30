@@ -49,7 +49,7 @@ public class SqlserverFullLogTemplate extends CommonFullLogTemplate implements I
       rs.next();
       return rs.getInt(1);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -93,7 +93,7 @@ public class SqlserverFullLogTemplate extends CommonFullLogTemplate implements I
       rs.absolute((d.getPageNumber()-1)*d.getPageSize());
       l = objs(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -135,7 +135,7 @@ public class SqlserverFullLogTemplate extends CommonFullLogTemplate implements I
       rs.absolute((d.getPageNumber()-1)*d.getPageSize());
       l = beans(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -166,7 +166,7 @@ public class SqlserverFullLogTemplate extends CommonFullLogTemplate implements I
       rs = stmt.executeQuery();
       return objs(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -195,7 +195,7 @@ public class SqlserverFullLogTemplate extends CommonFullLogTemplate implements I
       rs = stmt.executeQuery();
       return beans(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }

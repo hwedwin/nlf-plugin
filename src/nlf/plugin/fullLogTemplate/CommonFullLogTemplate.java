@@ -50,7 +50,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       rs = stmt.executeQuery();
       return objs(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -108,7 +108,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       rs = stmt.executeQuery();
       return beans(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -183,7 +183,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       // 如果不支持批处理，执行update
       return stmt.executeUpdate();
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       // 如果不支持批处理，直接善后
       if(!sptBatch){
@@ -201,7 +201,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       stmt = cv.getConnection().getSqlConnection().prepareCall(sql);
       stmt.execute();
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(procName,e);
     }finally{
       finalize(stmt,null);
     }
@@ -231,7 +231,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       processParams(stmt,pl);
       stmt.execute();
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(procName,e);
     }finally{
       finalize(stmt,null);
     }
@@ -282,7 +282,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       rs = stmt.executeQuery();
       l = new ResultSetIterator(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       if(null!=stmt&&null!=rs){
         sars.add(new StatementAndResultSet(stmt,rs));
@@ -381,7 +381,7 @@ public class CommonFullLogTemplate extends SuperTemplate{
       rs = stmt.executeQuery();
       l = new TResultSetIterator<T>(rs,klass,rule);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       if(null!=stmt&&null!=rs){
         sars.add(new StatementAndResultSet(stmt,rs));

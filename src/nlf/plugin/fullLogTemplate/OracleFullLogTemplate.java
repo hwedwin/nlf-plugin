@@ -49,7 +49,7 @@ public class OracleFullLogTemplate extends CommonFullLogTemplate implements IOra
       rs.next();
       return rs.getInt(1);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -86,7 +86,7 @@ public class OracleFullLogTemplate extends CommonFullLogTemplate implements IOra
       rs = stmt.executeQuery();
       l = objs(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -121,7 +121,7 @@ public class OracleFullLogTemplate extends CommonFullLogTemplate implements IOra
       rs = stmt.executeQuery();
       l = beans(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -146,7 +146,7 @@ public class OracleFullLogTemplate extends CommonFullLogTemplate implements IOra
       rs = stmt.executeQuery();
       return objs(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
@@ -169,7 +169,7 @@ public class OracleFullLogTemplate extends CommonFullLogTemplate implements IOra
       rs = stmt.executeQuery();
       return beans(rs);
     }catch(SQLException e){
-      throw new DaoException(e);
+      throw new DaoException(sql,e);
     }finally{
       finalize(stmt,rs);
     }
